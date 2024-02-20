@@ -1,12 +1,9 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Metadata } from "next";
+import { NavBar } from "./components/NavBar";
 
 export const metadata: Metadata = {
   title: "Site E-commerce",
-  description: "Criando um site e-commerce com NextJS e entre outras técnologias",
+  description: "Criando um site e-commerce com NextJS e outras tecnologias",
 };
 
 export default function RootLayout({
@@ -16,7 +13,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={inter.className}>{children}</body>
+      <body className="bg-customLightGreen">
+        <NavBar />
+        <main className="container mx-auto p-4">{children}</main>
+      </body>
     </html>
   );
 }
+
+import "./globals.css";

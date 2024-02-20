@@ -8,6 +8,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        customGreen: '#0A3200',
+        customLightGreen: '#F5F9E9',
+        customDarkBlue: '#2C2C54',
+        customDarkGray: '#0D1321',
+        customOliveGreen: '#7B904B',
+      },
     },
   },
   plugins: [],
