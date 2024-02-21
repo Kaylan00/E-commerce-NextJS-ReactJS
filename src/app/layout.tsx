@@ -1,5 +1,18 @@
 import { Metadata } from "next";
+
 import { NavBar } from "./components/NavBar";
+
+import clsx from "clsx";
+
+import { ClerkProvider } from "@clerk/nextjs";
+
+import { ptBR } from "@clerk/localizations";
+
+import Hydrate from "./components/Hydrate";
+
+import "./globals.css";
+
+
 
 export const metadata: Metadata = {
   title: "Site E-commerce",
@@ -12,13 +25,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
-      <body className="bg-customLightGreen">
-        <NavBar />
-        <main className="container mx-auto p-4">{children}</main>
-      </body>
-    </html>
+    <ClerkProvider localization={ptBR}>
+      <html lang="pt-br">
+
+        <body className={clsx("bg-customAliceBlue")}>
+          <Hydrate>
+            <NavBar />
+            <main className="container mx-auto p-4">{children}</main>
+          </Hydrate>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
 
-import "./globals.css";

@@ -11,9 +11,9 @@ const config: Config = {
       colors: {
         customGreen: '#0A3200',
         customLightGreen: '#F5F9E9',
-        customDarkBlue: '#2C2C54',
-        customDarkGray: '#0D1321',
-        customOliveGreen: '#7B904B',
+        customPurple: '#4C3AAA',
+        customDarkBlue2: '#0D1321',
+        customAliceBlue: '#DAF5FF',
       },
     },
   },
