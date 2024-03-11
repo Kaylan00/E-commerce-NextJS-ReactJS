@@ -28,7 +28,7 @@ export default function RootLayout({
     <ClerkProvider localization={ptBR}>
       <html lang="pt-br">
 
-        <body className={clsx("bg-customAliceBlue")}>
+        <body className={clsx("bg-white")}>
           <Hydrate>
             <NavBar />
             <main className="container mx-auto p-4">{children}</main>

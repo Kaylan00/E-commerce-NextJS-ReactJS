@@ -1,5 +1,6 @@
 'use client';
 import { useCartStore } from '@/store';
+import CartDrawer from './CartDrawer';
 
 export default function Cart() {
   const useStore = useCartStore();
@@ -7,7 +8,7 @@ export default function Cart() {
     <>
       <div
         onClick={() => useStore.toggleCart()}
-        className='flex items-center cursor-pointer relative'
+        className='flex items-center cursor-pointer relative hover:bg-green-800 rounded-md px-4 py-2 transition duration-300 hover:text-white'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -25,20 +26,21 @@ export default function Cart() {
         </svg>
         <span
           className='
-            bg-teal-600 
-            text-sm 
+            bg-customPurple 
+            text-xs 
             text-white
             font-bold 
             rounded-full 
-            h-5 w-5
+            h-4 w-4
             flex items-center justify-center
             absolute
-            left-3
-            bottom-3'
+            left-7
+            bottom-5'
         >
           {useStore.cart?.length}
         </span>
       </div>
+      {!useStore.isOpen && <CartDrawer />}
     </>
   );
 }

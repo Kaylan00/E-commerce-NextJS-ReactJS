@@ -4,8 +4,9 @@ import { ProductType } from '@/types/ProductTypes';
 
 type CartState = {
   cart: ProductType[];
-  addProduct: (product: ProductType) => void;
+  addProduct: (product: ProductType, quantity?: number) => void; // Adicionando o parâmetro de quantidade opcional
   removeProduct: (product: ProductType) => void;
+  updateProductQuantity: (productId: string, newQuantity: number) => void; // Adicionando a função updateProductQuantity
   isOpen: boolean;
   toggleCart: () => void;
   clearCart: () => void;
@@ -19,39 +20,41 @@ export const useCartStore = create<CartState>()(
   persist(
     (set) => ({
       cart: [],
-      addProduct: (item) =>
+      addProduct: (item, quantity = 1) => 
         set((state) => {
-          const product = state.cart.find((p) => p.id === item.id);
+          const updatedCart: ProductType[] = state.cart ? [...state.cart] : [];
 
-          if (product) {
-            const updatedCart = state.cart.map((p) => {
-              if (p.id === item.id) {
-                return { ...p, quantity: p.quantity ? p.quantity + 1 : 1 };
-              }
-              return p;
-            });
-            return { cart: updatedCart };
+          const productIndex = updatedCart.findIndex((p) => p.id === item.id);
+
+          if (productIndex !== -1) {
+            updatedCart[productIndex] = {
+              ...updatedCart[productIndex],
+              quantity: (updatedCart[productIndex].quantity || 0) + quantity 
+            };
           } else {
-            return { cart: [...state.cart, { ...item, quantity: 1 }] };
+            updatedCart.push({ ...item, quantity: quantity }); 
           }
+
+          return { cart: updatedCart };
         }),
-      removeProduct: (item) =>
+        removeProduct: (item) =>
         set((state) => {
-          const existingProduct = state.cart.find((p) => p.id === item.id);
-
-          if (existingProduct && existingProduct.quantity! > 1) {
-            const updatedCart = state.cart.map((p) => {
-              if (p.id === item.id) {
-                return { ...p, quantity: p.quantity! - 1 };
-              }
-              return p;
-            });
-            return { cart: updatedCart };
-          } else {
-            const filterdCart = state.cart.filter((p) => p.id !== item.id);
-            return { cart: filterdCart };
-          }
+          const updatedCart = state.cart.map((p) => {
+            if (p.id === item.id && p.quantity! > 1) {
+              return { ...p, quantity: p.quantity! - 1 };
+            }
+            return p;
+          });
+          const filteredCart = updatedCart.filter((p) => p.id !== item.id);
+          return { cart: filteredCart };
         }),
+      
+      updateProductQuantity: (productId: string, newQuantity: number) => // Implementando a função updateProductQuantity
+        set((state) => ({
+          cart: state.cart.map((item) =>
+            item.id === productId ? { ...item, quantity: newQuantity } : item
+          )
+        })),
       isOpen: false,
       toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
       onCheckout: 'cart',

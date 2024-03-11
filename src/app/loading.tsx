@@ -1,21 +1,8 @@
-import SkeletonCard from './components/SkeletonCard';
-
-export default function Product() {
+export default function LoadingScreen() {
   return (
-    <div className='max-w-7xl mx-auto pt-8 px-8 xl:px-0'>
-      <div
-        className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 xl:gap-6
-  '
-      >
-        <SkeletonCard isLoading />
-        <SkeletonCard isLoading />
-        <SkeletonCard isLoading />
-        <SkeletonCard isLoading />
-        <SkeletonCard isLoading />
-        <SkeletonCard isLoading />
-        <SkeletonCard isLoading />
-        <SkeletonCard isLoading />
-      </div>
+    <div className="flex justify-center items-center h-screen">
+      <div className="border border-t-4 border-b-4 border-customGreen rounded-full w-12 h-12 animate-spin mr-3"></div>
+      <span className="text-xl text-customGreen font-semibold">Carregando...</span>
     </div>
   );
 }
